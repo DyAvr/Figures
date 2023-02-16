@@ -1,67 +1,35 @@
 ﻿namespace Figures.Shapes {
     public class Triangle: IFigure {
-        private double p;
-        private double a;
-        private double b;
-        private double c;
-        public double A {
-            get {
-                return a;
-            }
-            private set {
-                if(value <= 0) {
-                    throw new ArgumentException();
-                }
-                a = value;
-            }
-        }
-        public double B {
-            get {
-                return b;
-            }
-            private set {
-                if(value <= 0) {
-                    throw new ArgumentException();
-                }
-                b = value;
-            }
-        }
-        public double C {
-            get {
-                return c;
-            }
-            private set {
-                if(value <= 0) {
-                    throw new ArgumentException();
-                }
-                c = value;
-            }
-        }
+        private readonly double a;
+        private readonly double b;
+        private readonly double c;
+
         public Triangle(double a, double b, double c) {
-            A = a;
-            B = b;
-            C = c;
+            this.a = a;
+            this.b = b;
+            this.c = c;
             CheckForExistence();
         }
 
-        private void CheckForExistence() {
-            if (A+B<C || A+C<B || B + C < A) {
-                throw new ArgumentException();
-            }
+        public double GetArea() {
+            var p = EvaluateHalfPerimeter();
+            return Math.Sqrt(p * (p - a) * (p - b) * (p - c));
         }
 
-        public double GetArea() {
-            EvaluateHalfPerimeter();
-            return Math.Sqrt(p * (p - A) * (p - B) * (p - C));
-        }
-        private void EvaluateHalfPerimeter() {
-            p = (A + B + C) / 2;
-        }
         public bool IsRight() {
-            double c = Math.Max(Math.Max(A, B), C);
-            double a = Math.Min(Math.Min(A, B), C);
-            double b = A + B + C - c - a;
-            return c * c == a * a + b * b;
+            double C = Math.Max(Math.Max(a, b), c);
+            double A = Math.Min(Math.Min(a, b), c);
+            double B = a + b + c - C - A;
+            return C * C == A * A + B * B;
         }
+
+        private void CheckForExistence() {
+            if(a <= 0 | b <= 0 | c <= 0)
+                throw new ArgumentException("Сторона должна быть больше нуля");
+            if(a + b <= c || a + c <= b || b + c <= a)
+                throw new ArgumentException("Треугольник с такими сторонами не существует");
+        }
+
+        private double EvaluateHalfPerimeter() => (a + b + c) / 2;
     }
 }

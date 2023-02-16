@@ -1,22 +1,16 @@
 ﻿namespace Figures.Shapes {
     public class Circle: IFigure {
-        private double radius;
-        public double Radius {
-            get {
-                return radius;
-            }
-            private set {
-                if (value <= 0) {
-                    throw new ArgumentException();
-                }
-                radius = value;
-            }
-        }
+        private readonly double r;
         public Circle(double radius) {
-            Radius = radius;
+            r = radius;
+            CheckRadius();
         }
-        public double GetArea() {
-            return Math.PI * Radius * Radius;
+
+        public double GetArea() => Math.PI * r * r;
+
+        private void CheckRadius() {
+            if(r <= 0)
+                throw new ArgumentException("Радиус должен быть больше нуля");
         }
     }
 }
