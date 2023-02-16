@@ -1,6 +1,4 @@
-﻿using Figures;
-
-namespace TestFigures {
+﻿namespace TestFigures {
     public class TriangleTests {
         [Test]
         public void TestAreaOfTriangle() {
@@ -29,7 +27,7 @@ namespace TestFigures {
         [TestCase(3, 5, 4)]
         [TestCase(8, 10, 6)]
         public void TestTriangleIsRight(double a, double b, double c) {
-            var t = (Triangle)ShapeFactory.CreateTriangle(a,b,c);
+            var t = (Triangle)ShapeFactory.CreateTriangle(a, b, c);
 
             Assert.True(t.IsRight());
         }
@@ -37,7 +35,7 @@ namespace TestFigures {
         [TestCase(3, 6, 5)]
         [TestCase(8, 10, 7)]
         public void TestTriangleIsNotRight(double a, double b, double c) {
-            var t = (Triangle)ShapeFactory.CreateTriangle(a,b,c);
+            var t = (Triangle)ShapeFactory.CreateTriangle(a, b, c);
 
             Assert.False(t.IsRight());
         }
